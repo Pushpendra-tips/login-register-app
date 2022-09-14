@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
+import axios from 'axios';
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -8,6 +9,18 @@ const Register = () => {
     password: "",
     reEnterPassword: "",
   });
+
+  const register=()=>{
+   const {name, email, password, reEnterPassword} = user
+
+   if(name && email && password && (password===reEnterPassword)){
+    axios.post("http://localhost:5000/register",user)
+    .then(res=>console.log(res))
+    // alert("posted")
+   }else{
+    alert("invalid")
+   }
+  }
 
   const handleChange=(e)=>{
  
@@ -51,7 +64,7 @@ const Register = () => {
         placeholder="Re-enter Password"
         onChange={handleChange}
       ></input>
-      <div className="button">Register</div>
+      <div className="button" onClick={register}>Register</div>
       or
       <div className="button">Login</div>
     </div>
